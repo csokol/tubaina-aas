@@ -21,6 +21,8 @@ import play.mvc.Result;
 import play.mvc.With;
 import views.html.index;
 
+import com.avaje.ebean.Ebean;
+
 public class Application extends Controller {
 
 	public static Result index() {
@@ -79,4 +81,6 @@ public class Application extends Controller {
 	    response().setHeader("Content-Disposition", "attachment; filename=" + pdf.getName() + ".pdf");	    
 	    return ok(pdf.getFile());
 	}
+	
+	
 }
