@@ -8,6 +8,7 @@ GET     /generate/:course/:notes    controllers.Application.generate(course:Stri
 GET 		/login/phase1			   controllers.LoginController.login()
 GET 		/login/failed			   controllers.LoginController.notLogged()
 GET 		/login/authenticationFailed			   controllers.LoginController.authenticationFailed()
+GET 		/logout			   		   controllers.LoginController.logout()
 GET     /generated				   controllers.Application.listPdfs()
 GET     /generated/:id			   controllers.Application.download(id:Long)
 

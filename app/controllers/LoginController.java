@@ -20,11 +20,16 @@ public class LoginController extends Controller{
 	
 	
 	public static Result notLogged(){
-		return ok("Sem acesso");
+		return ok(views.html.notLogged.render());
 	}
 	
 	public static Result authenticationFailed(){
-		return badRequest("Problema na autenticacao. Tente logar de novo");
+		return badRequest(views.html.authenticationFailed.render());
+	}
+	
+	public static Result logout(){
+		session().clear();
+		return redirect(routes.Application.index());
 	}
 
 	public static Result login(){
