@@ -2,9 +2,12 @@ package controllers;
 
 import java.util.List;
 
+import models.GithubUser;
+
 import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.RepositoryService;
+import org.eclipse.egit.github.core.service.UserService;
 
 import play.Configuration;
 import play.Play;
@@ -53,7 +56,12 @@ public class LoginController extends Controller{
 				List<Repository> all = service.getOrgRepositories("caelum");
 				for (Repository repository : all) {
 					if(repository.getName().equals("apostilas-novas")){
+						UserService userService = new UserService(client);
+						GithubUser githubUser = new GithubUser(client.getUser(),userService.getEmails());						
 						session().put("user",client.getUser());
+						if(githubUser.hasEmail()){
+							session().put("email",githubUser.getFirstEmail());
+						}
 						return redirect(controllers.routes.Application.listPdfs());
 					}
 				}

@@ -15,7 +15,6 @@ object ApplicationBuild extends Build {
     
     "net.htmlparser.jericho" % "jericho-html" % "3.1",
 	"de.java2html" % "java2html" % "5.0",
-	//"log4j" % "log4j" % "1.2.12",
 	"commons-io" % "commons-io" % "2.4",
 	"commons-cli" % "commons-cli" % "1.1",
 	"org.apache.httpcomponents" % "httpclient" % "4.1.3",
@@ -25,7 +24,8 @@ object ApplicationBuild extends Build {
 	"com.thoughtworks.xstream" % "xstream" % "1.4.2",
 	"org.apache.commons" % "commons-exec" % "1.1",
 	"net.lingala.zip4j" % "zip4j" % "1.3.1",
-	"org.eclipse.mylyn.github" % "org.eclipse.egit.github.core" % "2.1.3"
+	"org.eclipse.mylyn.github" % "org.eclipse.egit.github.core" % "2.1.3",
+	"org.apache.commons" % "commons-email" % "1.3"
             
     
   )
