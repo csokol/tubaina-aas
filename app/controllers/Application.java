@@ -3,6 +3,7 @@ package controllers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 import models.PDFGenerator;
@@ -63,5 +64,18 @@ public class Application extends Controller {
 		});
 
 		return ok("Sua apostila está sendo gerada, daqui a pouco você olha nesse link");
+	}
+	
+	
+	public static Result listPdfs() {
+	    List<PdfGenerated> pdfs = PdfGenerated.finder.all();
+	    return ok(pdfs.toString());
+	}
+	
+	public static Result download(Long id) {
+	    PdfGenerated pdf = PdfGenerated.finder.byId(id);
+	    response().setHeader("Content-Disposition", "attachment; filename=" + pdf.getName() + ".pdf");
+	    
+	    return ok(pdf.getFile());
 	}
 }

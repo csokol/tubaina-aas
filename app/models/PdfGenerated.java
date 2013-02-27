@@ -35,5 +35,20 @@ public class PdfGenerated extends Model {
         this.name = name;
         this.file = file;
     }
+
+    @Override
+    public String toString() {
+        return "PdfGenerated [id=" + id + ", name=" + name + ", date=" + date + "]";
+    }
+    
+    public byte[] getFile() {
+        return file;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    
     
 }
