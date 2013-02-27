@@ -24,7 +24,7 @@ public class TextBookGenerator {
 
 	}
 
-	public void run() throws IOException {
+	public void run() {
 		TubainaBuilder tubainaBuilder = new TubainaBuilder(ParseType.LATEX);
 		tubainaBuilder.bookName(course);
 		tubainaBuilder.templateDir(templateDir);
@@ -36,7 +36,11 @@ public class TextBookGenerator {
 			tubainaBuilder.showNotes();
 		}
 
-		tubainaBuilder.build();
+		try {
+			tubainaBuilder.build();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }
