@@ -12,7 +12,7 @@ import play.db.ebean.Model;
 
 
 @Entity
-public class PdfGenerated extends Model {
+public class PdfGenerated extends Model implements Comparable<PdfGenerated> {
     
     private static final long serialVersionUID = 1L;
 
@@ -48,6 +48,11 @@ public class PdfGenerated extends Model {
     public String getName() {
         return name;
     }
+
+	@Override
+	public int compareTo(PdfGenerated other) {
+		return this.date.compareTo(other.date);
+	}
     
     
     

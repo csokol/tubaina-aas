@@ -3,6 +3,7 @@ package controllers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -65,13 +66,14 @@ public class Application extends Controller {
 			}
 		});
 
-		return ok("Sua apostila está sendo gerada, daqui a pouco você olha no link");
+		return ok("Acesse "+routes.Application.listPdfs().absoluteURL(request())+ " para ver se a apostila foi gerada");
 	}
 	
 	
 	@With(LoggedAction.class)
 	public static Result listPdfs() {
 	    List<PdfGenerated> pdfs = PdfGenerated.finder.all();
+	    Collections.sort(pdfs);
 	    return ok(views.html.pdfs.render(pdfs));
 	}
 	
