@@ -3,9 +3,16 @@
 # ~~~~
 
 # Home page
+<<<<<<< HEAD
 GET     /                           controllers.Application.index()
 GET     /generate/:course/:notes    controllers.Application.generate(course:String, notes:String)
 GET 		/login/phase1			   controllers.LoginController.login()
+=======
+GET     /													controllers.Application.index()
+GET     /generate/:course/:notes							controllers.Application.generate(course:String, notes:String)
+GET     /generated											controllers.Application.listPdfs()
+GET     /generated/:id										controllers.Application.download(id:Long)
+>>>>>>> ecd74bc6b3fd4145a1a9da54f7a52077bc9d7bb9
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

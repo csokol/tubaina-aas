@@ -14,5 +14,9 @@ dist
 /.project
 /RUNNING_PID
 /.settings
+<<<<<<< HEAD
 tokens
 
+=======
+todo.log
+>>>>>>> ecd74bc6b3fd4145a1a9da54f7a52077bc9d7bb9
