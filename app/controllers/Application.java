@@ -3,6 +3,8 @@ package controllers;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Scanner;
 import java.util.zip.ZipOutputStream;
 
 import play.Configuration;
@@ -19,7 +21,7 @@ public class Application extends Controller {
         return ok(index.render("Your new application is ready."));
     }
     
-    public static Result generate(String course, String type) throws IOException {
+    public static Result generate(String course, String type) throws IOException, InterruptedException {
         Configuration configuration = Play.application().configuration();
         String tempDir = configuration.getString("tubaina.output.dir");
         String apostilasDir = configuration.getString("tubaina.apostilas.dir");
@@ -29,11 +31,14 @@ public class Application extends Controller {
         
         runTubaina(course, type, apostilasDir, outputDir, templateDir);
         
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        zipOutput(outputDir, byteArrayOutputStream);
+        InputStream bashStream = Application.class.getResourceAsStream("/resources/pdflatex.sh");
+        String script = new Scanner(bashStream).useDelimiter("$$").next();
+        File pdfDir = new File(outputDir, "latex");
+        String output = new ArapucaCommandExecutor().execute("/usr/bin/bash", script, pdfDir);
+        System.out.println(output);
         
-        response().setHeader("Content-Disposition", "attachment; filename=" + course + ".zip");
-        return ok(byteArrayOutputStream.toByteArray());
+        response().setHeader("Content-Disposition", "attachment; filename=" + course + ".pdf");
+        return ok(new File(pdfDir, "book.pdf"));
     }
 
     private static void zipOutput(File outputDir, ByteArrayOutputStream byteArrayOutputStream)
