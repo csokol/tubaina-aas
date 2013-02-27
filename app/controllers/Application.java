@@ -1,11 +1,16 @@
 package controllers;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 
 import models.PDFGenerator;
+import models.PdfGenerated;
 import models.TextBookGenerator;
+
+import org.apache.commons.io.IOUtils;
+
 import play.Configuration;
 import play.Play;
 import play.libs.F.Function;
@@ -13,6 +18,8 @@ import play.libs.F.Promise;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
+
+import com.avaje.ebean.Ebean;
 
 public class Application extends Controller {
 
@@ -47,13 +54,14 @@ public class Application extends Controller {
 
 			@Override
 			public Void apply(File pdf) throws Throwable {
-				System.out.println("agora falta salvar no banco");
+			    byte[] contents = IOUtils.toByteArray(new FileInputStream(pdf));
+			    PdfGenerated pdfGenerated = new PdfGenerated(course, contents);
+			    System.out.println("saving...");
+			    Ebean.save(pdfGenerated);
 				return null;
 			}
 		});
 
-		// response().setHeader("Content-Disposition",
-		// "attachment; filename=" + course + ".pdf");
 		return ok("Sua apostila está sendo gerada, daqui a pouco você olha nesse link");
 	}
 }

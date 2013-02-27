@@ -31,7 +31,8 @@ object ApplicationBuild extends Build {
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
     // Add your own project settings here
-    resolvers += "maven" at "https://repository.jboss.org/nexus/content/groups/public/"      
+    resolvers += "maven" at "https://repository.jboss.org/nexus/content/groups/public/",      
+    ebeanEnabled := true
   )
 
 }
