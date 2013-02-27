@@ -1,0 +1,13 @@
+@(pdfs:java.util.List[PdfGenerated])
+@main {
+    <div id="main">
+	    	<table>
+			    @pdfs.map { pdf =>
+					<tr>
+						<td>@pdf.name</td>
+						<td><a href="@routes.Application.download(pdf.id)">Download</a></td>
+					</tr>  	    	
+			    }
+		</table>
+    </div>	
+}

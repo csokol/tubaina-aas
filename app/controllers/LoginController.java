@@ -54,10 +54,10 @@ public class LoginController extends Controller{
 				for (Repository repository : all) {
 					if(repository.getName().equals("apostilas-novas")){
 						session().put("user",client.getUser());
-						return redirect(controllers.routes.Application.index());
+						return redirect(controllers.routes.Application.listPdfs());
 					}
 				}
-				return redirect(controllers.routes.Application.index());
+				return redirect(controllers.routes.LoginController.authenticationFailed());
 			}
 		});
 		return async(waitingResult);

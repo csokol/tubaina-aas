@@ -70,7 +70,7 @@ public class Application extends Controller {
 	@With(LoggedAction.class)
 	public static Result listPdfs() {
 	    List<PdfGenerated> pdfs = PdfGenerated.finder.all();
-	    return ok(pdfs.toString());
+	    return ok(views.html.pdfs.render(pdfs));
 	}
 	
 	@With(LoggedAction.class)
