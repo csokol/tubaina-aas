@@ -17,6 +17,15 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 public class LoginController extends Controller{
+	
+	
+	public static Result notLogged(){
+		return ok("Sem acesso");
+	}
+	
+	public static Result authenticationFailed(){
+		return badRequest("Problema na autenticacao. Tente logar de novo");
+	}
 
 	public static Result login(){
 		String githubCode = request().getQueryString("code");
@@ -39,6 +48,7 @@ public class LoginController extends Controller{
 				List<Repository> all = service.getOrgRepositories("caelum");
 				for (Repository repository : all) {
 					if(repository.getName().equals("apostilas-novas")){
+						session().put("user",client.getUser());
 						return redirect(controllers.routes.Application.index());
 					}
 				}

@@ -18,9 +18,8 @@ import play.libs.F.Function;
 import play.libs.F.Promise;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.With;
 import views.html.index;
-
-import com.avaje.ebean.Ebean;
 
 public class Application extends Controller {
 
@@ -29,6 +28,7 @@ public class Application extends Controller {
 		return ok(index.render(configuration.getString("github.client_id")));
 	}
 
+	@With(LoggedAction.class)
 	public static Result generate(final String course, final String type)
 			throws IOException, InterruptedException {
 		Configuration configuration = Play.application().configuration();
@@ -58,25 +58,25 @@ public class Application extends Controller {
 			public Void apply(File pdf) throws Throwable {
 			    byte[] contents = IOUtils.toByteArray(new FileInputStream(pdf));
 			    PdfGenerated pdfGenerated = new PdfGenerated(course, contents);
-			    System.out.println("saving...");
-			    Ebean.save(pdfGenerated);
+			    pdfGenerated.save();			    
 				return null;
 			}
 		});
 
-		return ok("Sua apostila está sendo gerada, daqui a pouco você olha nesse link");
+		return ok("Sua apostila está sendo gerada, daqui a pouco você olha no link");
 	}
 	
 	
+	@With(LoggedAction.class)
 	public static Result listPdfs() {
 	    List<PdfGenerated> pdfs = PdfGenerated.finder.all();
 	    return ok(pdfs.toString());
 	}
 	
+	@With(LoggedAction.class)
 	public static Result download(Long id) {
 	    PdfGenerated pdf = PdfGenerated.finder.byId(id);
-	    response().setHeader("Content-Disposition", "attachment; filename=" + pdf.getName() + ".pdf");
-	    
+	    response().setHeader("Content-Disposition", "attachment; filename=" + pdf.getName() + ".pdf");	    
 	    return ok(pdf.getFile());
 	}
 }
