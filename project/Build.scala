@@ -24,7 +24,8 @@ object ApplicationBuild extends Build {
 	"com.lowagie" % "itext" % "2.1.7",
 	"com.thoughtworks.xstream" % "xstream" % "1.4.2",
 	"org.apache.commons" % "commons-exec" % "1.1",
-	"net.lingala.zip4j" % "zip4j" % "1.3.1"
+	"net.lingala.zip4j" % "zip4j" % "1.3.1",
+	"org.eclipse.mylyn.github" % "org.eclipse.egit.github.core" % "2.1.3"
             
     
   )

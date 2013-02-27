@@ -17,7 +17,8 @@ import views.html.index;
 public class Application extends Controller {
 
 	public static Result index() {
-		return ok(index.render("Your new application is ready."));
+		Configuration configuration = Play.application().configuration();
+		return ok(index.render(configuration.getString("github.client_id")));
 	}
 
 	public static Result generate(final String course, final String type)
