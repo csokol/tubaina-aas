@@ -12,9 +12,10 @@ import models.PdfGenerated;
 import models.TextBookGenerator;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.HtmlEmail;
 import org.apache.commons.mail.MultiPartEmail;
+import org.apache.log4j.Logger;
 
 import play.Configuration;
 import play.Play;
@@ -25,9 +26,8 @@ import play.mvc.Result;
 import play.mvc.With;
 import views.html.index;
 
-import com.avaje.ebean.Ebean;
-
 public class Application extends Controller {
+    private static final Logger LOG = Logger.getLogger(Application.class);
 
 	public static Result index() {
 		Configuration configuration = Play.application().configuration();
@@ -60,14 +60,17 @@ public class Application extends Controller {
 					}
 				});
 		generatingTextBook.map(new Function<File, Void>() {
-
 			@Override
 			public Void apply(File pdf) throws Throwable {
 				byte[] contents = IOUtils.toByteArray(new FileInputStream(pdf));
 				PdfGenerated pdfGenerated = new PdfGenerated(course, contents);
 				pdfGenerated.save();
 				if (emailToSend != null) {
-					sendEmail(course, configuration, emailToSend, pdf);
+				    try {
+				        sendEmail(course, configuration, emailToSend, pdf);
+				    } catch (EmailException e) {
+				        LOG.error(e);
+                    }
 				}
 
 				return null;
@@ -86,12 +89,14 @@ public class Application extends Controller {
 		MultiPartEmail email = new MultiPartEmail();
 		email.setHostName("smtp.gmail.com");
 		email.setSmtpPort(587);
-		email.setAuthentication("aagendatech@gmail.com",
-				configuration.getString("email.password"));
+		
+		email.setTLS(true);
+        email.setAuthenticator(new DefaultAuthenticator("tubaina.aas@gmail.com",
+                configuration.getString("email.password")));
+		
 		email.setSubject("Sua apostila do curso " + course);
-		email.addTo("tubainasaas@caelum.com.br");
-		email.setFrom(emailToSend);
-		email.attach(pdf);
+		email.addTo(emailToSend);
+		email.setFrom("tubainasaas@caelum.com.br");
 		email.setMsg("Obrigado por usar o tubaina as a service. Sua apostila encontra-se em anexo");
 		email.send();
 	}
