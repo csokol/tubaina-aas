@@ -59,7 +59,7 @@ public class Application extends Controller {
 								outputDir, templateDir).run();
 						File pdfDir = new File(outputDir, "latex");
 						LOG.info("executing pdflatex...");
-						new PDFGenerator("/resources/pdflatex.sh")
+						new PDFGenerator(configuration.getString("bash.path"), "/resources/pdflatex.sh")
 								.generate(pdfDir);
 						LOG.info("finished generating pdf...");
 						return new File(pdfDir, "book.pdf");

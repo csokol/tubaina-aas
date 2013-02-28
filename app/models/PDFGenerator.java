@@ -10,14 +10,16 @@ import controllers.ArapucaCommandExecutor;
 public class PDFGenerator {
 
 	private String script;
+    private final String bash;
 
-	public PDFGenerator(String scriptPath) {
+	public PDFGenerator(String bash, String scriptPath) {
+        this.bash = bash;
         InputStream bashStream = Application.class.getResourceAsStream(scriptPath);
         script = new Scanner(bashStream).useDelimiter("$$").next();
 	}
 
 	public String generate(File pdfDir) {
-		String output = new ArapucaCommandExecutor().execute("/usr/bin/bash", script, pdfDir);
+		String output = new ArapucaCommandExecutor().execute(bash, script, pdfDir);
 		return output;
 	}
 	
