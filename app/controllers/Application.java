@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -22,6 +23,7 @@ import org.apache.commons.mail.SimpleEmail;
 
 import play.Configuration;
 import play.Play;
+import play.api.templates.Html;
 import play.libs.F.Function;
 import play.libs.F.Promise;
 import play.mvc.Controller;
@@ -40,10 +42,9 @@ public class Application extends Controller {
 	public static Result generate(final String course, final String type)
 			throws IOException, InterruptedException {
 		final Configuration configuration = Play.application().configuration();
-		String tempDir = configuration.getString("tubaina.output.dir");
 		final String apostilasDir = configuration
 				.getString("tubaina.apostilas.dir");
-		final File outputDir = new File(tempDir, System.currentTimeMillis()
+		final File outputDir = new File(configuration.getString("tubaina.output.dir"), System.currentTimeMillis()
 				+ "");
 		final File templateDir = new File(configuration.getString("tubaina.templates.dir"));
 		final String userEmail = session().get("email");
@@ -118,9 +119,10 @@ public class Application extends Controller {
 
 		});
 
-		return ok("Acesse "
-				+ routes.Application.listPdfs().absoluteURL(request())
-				+ " para ver se a apostila foi gerada");
+		String bookUrl = routes.Application.listPdfs().absoluteURL(request());
+		return ok(Html.apply("Acesse <a href='"+bookUrl+"'>"
+				+ bookUrl
+				+ "</a> para ver se a apostila foi gerada"));
 	}
 
 	private static void sendEmail(final String course,
@@ -151,7 +153,10 @@ public class Application extends Controller {
 	public static Result listPdfs() {
 		List<PdfGenerated> pdfs = PdfGenerated.finder.all();
 		Collections.sort(pdfs);
-		return ok(views.html.pdfs.render(pdfs));
+		List<String> courses = Arrays.<String>asList("WD-01", "WD-43", "WD-47", "FJ-11", 
+				"FJ-21", "FJ-22", "FJ-25", "FJ-26", "FJ-27", "FJ-31", "FJ-34", "FJ-91", "FJ-57"
+				, "RR-71", "RR-75", "IP-67", "PM-83", "PM-87");
+		return ok(views.html.pdfs.render(pdfs, courses));
 	}
 
 	@With(LoggedAction.class)

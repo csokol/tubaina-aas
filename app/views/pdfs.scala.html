@@ -1,7 +1,12 @@
-@(pdfs:java.util.List[PdfGenerated])
+@(pdfs:java.util.List[PdfGenerated], courses:java.util.List[String])
 @main {
     <div id="main">
-	    	<table>
+    		<h1>Apostilas prontas</h1>
+	    	<table border=1px>
+	    	<tr>
+    			<th>Apostila</th>
+    			<th>Link para geracao</th>
+    		</tr>
 			    @pdfs.map { pdf =>
 					<tr>
 						<td>@pdf.name</td>
@@ -9,5 +14,21 @@
 					</tr>  	    	
 			    }
 		</table>
+    </div>
+    <div id="links_geracao">
+    	<h1>Links para geração</h1>
+    	<table border=1px>
+    		<tr>
+    			<th>Apostila</th>
+    			<th>Link para geracao</th>
+    		</tr>
+    		
+    		@courses.map { course =>
+					<tr>
+						<td>@course</td>
+		    			<td><a href="@routes.Application.generate(course, "instrutor")">@course</a></td>
+					</tr>  	    	
+			    }
+    	</table>
     </div>	
 }
