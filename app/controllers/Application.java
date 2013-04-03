@@ -43,11 +43,9 @@ public class Application extends Controller {
 		String tempDir = configuration.getString("tubaina.output.dir");
 		final String apostilasDir = configuration
 				.getString("tubaina.apostilas.dir");
-		final String templatePath = configuration
-				.getString("tubaina.templates.dir");
 		final File outputDir = new File(tempDir, System.currentTimeMillis()
 				+ "");
-		final File templateDir = new File(templatePath);
+		final File templateDir = new File(configuration.getString("tubaina.templates.dir"));
 		final String userEmail = session().get("email");
 
 		Promise<File> generatingTextBook = play.libs.Akka
@@ -59,9 +57,12 @@ public class Application extends Controller {
 						play.Logger.debug("executing pdflatex...");
 						new PDFGenerator(configuration.getString("bash.path"), "/resources/pdflatex.sh")
 								.generate(pdfDir);
-						play.Logger.debug("Executing: " );
 						play.Logger.debug("finished generating pdf...");
-						return new File(pdfDir, "book.pdf");
+						File pdf = new File(pdfDir, "book.pdf");
+						if (!pdf.exists()) {
+							throw new RuntimeException("não foi possível gerar o pdf, procure alguém que possa ajudá-lo");
+						}
+						return pdf;
 					}
 				});
 		
@@ -69,6 +70,7 @@ public class Application extends Controller {
             @Override
             public File apply(Throwable error) throws Throwable {
                 try {
+                	play.Logger.error("sending error email");
                     sendErrorMail(configuration, error);
                 } catch (EmailException e) {
                 	play.Logger.error("error", e);

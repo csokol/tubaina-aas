@@ -20,6 +20,7 @@ public class PDFGenerator {
 
 	public String generate(File pdfDir) {
 		String output = new ArapucaCommandExecutor().execute(bash, script, pdfDir);
+		play.Logger.debug("bash output:" + output);
 		return output;
 	}
 	
