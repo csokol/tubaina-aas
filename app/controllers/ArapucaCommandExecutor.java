@@ -57,7 +57,9 @@ public class ArapucaCommandExecutor {
 
     private void verifyExitStatus(String command, Process proc) {
         try {
+        	LOG.debug("Waiting for process...");
             proc.waitFor();
+            LOG.debug("Process finished...");
         } catch (InterruptedException e) {
             throw new TubainaException("Could not execute command: "+command, e);
         }
