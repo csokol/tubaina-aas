@@ -6,18 +6,15 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
-
 import br.com.caelum.tubaina.TubainaException;
 
 public class ArapucaCommandExecutor {
     
-    private final Logger LOG = Logger.getLogger(ArapucaCommandExecutor.class);
 
     public String execute(String command, String input, File cwd) {
         Process proc;
         try {
-            LOG.debug("Executing: " + command);
+        	play.Logger.debug("Executing: " + command);
             proc = Runtime.getRuntime().exec(command, null, cwd);
         } catch (IOException e) {
             throw new TubainaException("Could not execute command: "+command, e);
@@ -33,7 +30,7 @@ public class ArapucaCommandExecutor {
     public String execute(List<String> args, String input) {
         Process proc;
         try {
-            LOG.debug("Executing: " + args);
+        	play.Logger.debug("Executing: " + args);
             String[] argsArray = buildArgs(args);
             proc = Runtime.getRuntime().exec(argsArray);
         } catch (IOException e) {
@@ -57,9 +54,9 @@ public class ArapucaCommandExecutor {
 
     private void verifyExitStatus(String command, Process proc) {
         try {
-        	LOG.debug("Waiting for process...");
+        	play.Logger.debug("Waiting for process...");
             proc.waitFor();
-            LOG.debug("Process finished...");
+            play.Logger.debug("Process finished...");
         } catch (InterruptedException e) {
             throw new TubainaException("Could not execute command: "+command, e);
         }
