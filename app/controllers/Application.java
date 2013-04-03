@@ -19,7 +19,6 @@ import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.MultiPartEmail;
 import org.apache.commons.mail.SimpleEmail;
-import org.apache.log4j.Logger;
 
 import play.Configuration;
 import play.Play;
@@ -31,7 +30,6 @@ import play.mvc.With;
 import views.html.index;
 
 public class Application extends Controller {
-    private static final Logger LOG = Logger.getLogger(Application.class);
 
 	public static Result index() {
 		Configuration configuration = Play.application().configuration();
@@ -58,10 +56,11 @@ public class Application extends Controller {
 						new TextBookGenerator(course, type, apostilasDir,
 								outputDir, templateDir).run();
 						File pdfDir = new File(outputDir, "latex");
-						LOG.info("executing pdflatex...");
+						play.Logger.debug("executing pdflatex...");
 						new PDFGenerator(configuration.getString("bash.path"), "/resources/pdflatex.sh")
 								.generate(pdfDir);
-						LOG.info("finished generating pdf...");
+						play.Logger.debug("Executing: " );
+						play.Logger.debug("finished generating pdf...");
 						return new File(pdfDir, "book.pdf");
 					}
 				});
@@ -72,7 +71,7 @@ public class Application extends Controller {
                 try {
                     sendErrorMail(configuration, error);
                 } catch (EmailException e) {
-                    LOG.error(e);
+                	play.Logger.error("error", e);
                 }
                 return null;
             }
@@ -87,8 +86,8 @@ public class Application extends Controller {
                 
                 SimpleEmail simpleEmail = new SimpleEmail();
                 setEmailConf(configuration, simpleEmail);
-                LOG.error("error while building pdf, sending email to user");
-                LOG.error(stackTrace);
+                play.Logger.error("error while building pdf, sending email to user");
+                play.Logger.error(stackTrace);
                 String message = "Infelizmente não foi possivel gerar sua apostila, veja o erro abaixo:\n" + stackTrace;
                 simpleEmail.setMsg(message);
                 simpleEmail.setSubject("Erro na geração de apostila");
@@ -100,7 +99,7 @@ public class Application extends Controller {
 		generatingTextBook.map(new Function<File, Void>() {
 			@Override
 			public Void apply(File pdf) throws Throwable {
-			    LOG.info("reading pdf: " + pdf);
+				play.Logger.info("reading pdf: " + pdf);
 				byte[] contents = IOUtils.toByteArray(new FileInputStream(pdf));
 				PdfGenerated pdfGenerated = new PdfGenerated(course, contents);
 				pdfGenerated.save();
@@ -108,7 +107,7 @@ public class Application extends Controller {
 				    try {
 				        sendEmail(course, configuration, userEmail, pdf);
 				    } catch (EmailException e) {
-				        LOG.error(e);
+				    	play.Logger.error("error", e);
                     }
 				}
 
