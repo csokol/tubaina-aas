@@ -118,11 +118,9 @@ public class Application extends Controller {
 			}
 
 		});
-
-		String bookUrl = routes.Application.listPdfs().absoluteURL(request());
-		return ok(Html.apply("Acesse <a href='"+bookUrl+"'>"
-				+ bookUrl
-				+ "</a> para ver se a apostila foi gerada"));
+		
+		flash().put("successMessage", "Sua apostila está sendo gerada, aguarde um email pacientemente.");
+		return redirect(routes.Application.listPdfs());
 	}
 
 	private static void sendEmail(final String course,

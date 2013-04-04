@@ -1,4 +1,9 @@
 @(pdfs:java.util.List[PdfGenerated], courses:java.util.List[String])
+@if(flash.get("successMessage")!=null){
+	<div class="sucessMessages">
+		<span>@flash.get("successMessage")</span>
+	</div>
+}
 @main {
     <div id="main">
     		<h1>Apostilas prontas</h1>
