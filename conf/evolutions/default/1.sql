@@ -4,25 +4,21 @@
 # --- !Ups
 
 create table pdf_generated (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   name                      varchar(255),
-  date                      timestamp,
-  file                      blob,
+  date                      datetime,
+  file                      longblob,
   constraint pk_pdf_generated primary key (id))
 ;
-
-create sequence pdf_generated_seq;
 
 
 
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+SET FOREIGN_KEY_CHECKS=0;
 
-drop table if exists pdf_generated;
+drop table pdf_generated;
 
-SET REFERENTIAL_INTEGRITY TRUE;
-
-drop sequence if exists pdf_generated_seq;
+SET FOREIGN_KEY_CHECKS=1;
 

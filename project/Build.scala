@@ -25,7 +25,8 @@ object ApplicationBuild extends Build {
 	"org.apache.commons" % "commons-exec" % "1.1",
 	"net.lingala.zip4j" % "zip4j" % "1.3.1",
 	"org.eclipse.mylyn.github" % "org.eclipse.egit.github.core" % "2.1.3",
-	"org.apache.commons" % "commons-email" % "1.3"
+	"org.apache.commons" % "commons-email" % "1.3",
+	"mysql" % "mysql-connector-java" % "5.1.24"
             
     
   )
