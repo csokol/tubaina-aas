@@ -23,7 +23,6 @@ import org.apache.commons.mail.SimpleEmail;
 
 import play.Configuration;
 import play.Play;
-import play.api.templates.Html;
 import play.libs.F.Function;
 import play.libs.F.Promise;
 import play.mvc.Controller;
@@ -99,15 +98,18 @@ public class Application extends Controller {
             }
         });
 		
-		generatingTextBook.map(new Function<File, Void>() {
+		Promise<Void> generated = generatingTextBook.map(new Function<File, Void>() {
 			@Override
 			public Void apply(File pdf) throws Throwable {
 				play.Logger.info("reading pdf: " + pdf);
 				byte[] contents = IOUtils.toByteArray(new FileInputStream(pdf));
 				PdfGenerated pdfGenerated = new PdfGenerated(course, contents);
+				play.Logger.info("saving pdf");
 				pdfGenerated.save();
+				play.Logger.info("saved");
 				if (userEmail != null) {
 				    try {
+				    	play.Logger.info("sending mail...");
 				        sendEmail(course, configuration, userEmail, pdf);
 				    } catch (EmailException e) {
 				    	play.Logger.error("error", e);
@@ -117,6 +119,14 @@ public class Application extends Controller {
 				return null;
 			}
 
+		});
+		
+		generated.recover(new Function<Throwable, Void>() {
+			@Override
+			public Void apply(Throwable e) throws Throwable {
+				play.Logger.error("error", e);
+				return null;
+			}
 		});
 		
 		flash().put("successMessage", "Sua apostila está sendo gerada, aguarde um email pacientemente.");
