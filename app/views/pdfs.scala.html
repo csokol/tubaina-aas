@@ -1,39 +1,28 @@
 @(pdfs:java.util.List[PdfGenerated], courses:java.util.List[String])
 @if(flash.get("successMessage")!=null){
-	<div class="sucessMessages">
-		<span>@flash.get("successMessage")</span>
-	</div>
+	<span class="sucessMessage">
+		@flash.get("successMessage")
+	</span>
 }
 @main {
-    <div id="main">
-    		<h1>Apostilas prontas</h1>
-	    	<table border=1px>
-	    	<tr>
-    			<th>Apostila</th>
-    			<th>Link para geracao</th>
-    		</tr>
-			    @pdfs.map { pdf =>
-					<tr>
-						<td>@pdf.name</td>
-						<td><a href="@routes.Application.download(pdf.id)">Download</a></td>
-					</tr>  	    	
-			    }
-		</table>
-    </div>
-    <div id="links_geracao">
-    	<h1>Links para geração</h1>
-    	<table border=1px>
-    		<tr>
-    			<th>Apostila</th>
-    			<th>Link para geracao</th>
-    		</tr>
-    		
+	<h1 class="logo">Tubaina as a service</h1>
+    <main>
+    	<ul class="courses">
     		@courses.map { course =>
-					<tr>
-						<td>@course</td>
-		    			<td><a href="@routes.Application.generate(course, "instrutor")">@course</a></td>
-					</tr>  	    	
-			    }
-    	</table>
-    </div>	
+    			<li class="course @course">
+    				<span class="course-name">@course</span>
+    				<!-- TODO use Play's routes to generate the URL below -->
+    				<form action="@course/generate" method="get">
+	    				<input type="radio" name="operation" value="download" id="@course-download">
+	    				<label class="course-operation" for="@course-download">Download</label>
+	    				<input type="radio" name="operation" value="generate" id="@course-generate">
+	    				<label class="course-operation" for="@course-generate">Gerar</label>
+
+    					<input type="submit" name="type" value="Instrutor">
+    					<input type="submit" name="type" value="Aluno">
+    				</form>
+    			</li>
+    		}
+    	</ul>
+    </main>
 }
