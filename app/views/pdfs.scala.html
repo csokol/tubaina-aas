@@ -9,17 +9,17 @@
     <main>
     	<ul class="courses">
     		@courses.map { course =>
-    			<li class="course @course">
-    				<span class="course-name">@course</span>
+    			<li class="course">
+    				<h2 class="course-name @course">@course</h2>
     				<!-- TODO use Play's routes to generate the URL below -->
     				<form action="@course/generate" method="get">
-	    				<input type="radio" name="operation" value="download" id="@course-download">
-	    				<label class="course-operation" for="@course-download">Download</label>
-	    				<input type="radio" name="operation" value="generate" id="@course-generate">
-	    				<label class="course-operation" for="@course-generate">Gerar</label>
+	    				<input class="course-operation" type="radio" name="operation" value="download" id="@course-download">
+	    				<label class="course-button course-operation" for="@course-download">Download</label>
+	    				<input class="course-operation" type="radio" name="operation" value="generate" id="@course-generate">
+	    				<label class="course-button course-operation" for="@course-generate">Gerar</label>
 
-    					<input type="submit" name="type" value="Instrutor">
-    					<input type="submit" name="type" value="Aluno">
+    					<input class="course-button course-operation-type" type="submit" name="type" value="Instrutor">
+    					<input class="course-button course-operation-type" type="submit" name="type" value="Aluno">
     				</form>
     			</li>
     		}

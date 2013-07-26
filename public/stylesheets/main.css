@@ -11,6 +11,7 @@ body {
 	text-indent: -99999px;
 }
 .logo {
+	background-color: #fff;
 	background-image: url(../images/favicon.svg);
 	background-position: top center;
 	background-repeat: no-repeat;
@@ -29,6 +30,7 @@ body {
 	     -o-transform: translateX(-50%);
 	        transform: translateX(-50%);
 	width: 83px;
+	z-index: 2;
 }
 .big-logo {
 	background-image: url(../images/taas-logo.svg);
@@ -60,4 +62,164 @@ body {
 .login-button:active {
 	position: relative;
 	top: .2em;
+}
+.courses {
+	background-color: #f90;
+	margin-top: 180px;
+	padding-top: 50px;
+	text-align: center;
+}
+.course {
+	background-position: top center;
+	background-repeat: no-repeat;
+	background-size: 120px 120px;
+	display: inline-block;
+	margin: 1em;
+	padding: 1em;
+	-webkit-transition: .5s;
+	   -moz-transition: .5s;
+	     -o-transition: .5s;
+	        transition: .5s;
+	width: 280px;
+}
+.course:hover {
+	background-color: #fe9;
+}
+.course-name {
+	background-color: #0082c7;
+	color: transparent;
+	display: block;
+	font-size: 150%;
+	height: 120px;
+	margin: .5em auto 1em;
+	line-height: 120px;
+	-webkit-transition: .5s;
+	   -moz-transition: .5s;
+	     -o-transition: .5s;
+	        transition: .5s;
+	width: 120px;
+}
+.course:hover .course-name {
+	background-color: #9ff;
+	color: #333;
+}
+.course-name.CS-14 {
+	background-image: url(../images/courses/CS-14.svg);
+}
+.course-name.FJ-11 {
+	background-image: url(../images/courses/FJ-11.svg);
+}
+.course-name.FJ-19 {
+	background-image: url(../images/courses/FJ-19.svg);
+}
+.course-name.FJ-21 {
+	background-image: url(../images/courses/FJ-21.svg);
+}
+.course-name.FJ-22 {
+	background-image: url(../images/courses/FJ-22.svg);
+}
+.course-name.FJ-25 {
+	background-image: url(../images/courses/FJ-25.svg);
+}
+.course-name.FJ-26 {
+	background-image: url(../images/courses/FJ-26.svg);
+}
+.course-name.FJ-27 {
+	background-image: url(../images/courses/FJ-27.svg);
+}
+.course-name.FJ-28 {
+	background-image: url(../images/courses/FJ-28.svg);
+}
+.course-name.FJ-31 {
+	background-image: url(../images/courses/FJ-31.svg);
+}
+.course-name.FJ-34 {
+	background-image: url(../images/courses/FJ-34.svg);
+}
+.course-name.FJ-57 {
+	background-image: url(../images/courses/FJ-57.svg);
+}
+.course-name.FJ-59 {
+	background-image: url(../images/courses/FJ-59.svg);
+}
+.course-name.FJ-91 {
+	background-image: url(../images/courses/FJ-91.svg);
+}
+.course-name.FN-13 {
+	background-image: url(../images/courses/FN-13.svg);
+}
+.course-name.FN-23 {
+	background-image: url(../images/courses/FN-23.svg);
+}
+.course-name.IP-67 {
+	background-image: url(../images/courses/IP-67.svg);
+}
+.course-name.PM-83 {
+	background-image: url(../images/courses/PM-83.svg);
+}
+.course-name.PM-87 {
+	background-image: url(../images/courses/PM-87.svg);
+}
+.course-name.PM-89 {
+	background-image: url(../images/courses/PM-89.svg);
+}
+.course-name.RR-71 {
+	background-image: url(../images/courses/RR-71.svg);
+}
+.course-name.RR-75 {
+	background-image: url(../images/courses/RR-75.svg);
+}
+.course-name.WD-01 {
+	background-image: url(../images/courses/WD-01.svg);
+}
+.course-name.WD-41 {
+	background-image: url(../images/courses/WD-41.svg);
+}
+.course-name.WD-43 {
+	background-image: url(../images/courses/WD-43.svg);
+}
+.course-name.WD-47 {
+	background-image: url(../images/courses/WD-47.svg);
+}
+input[type=radio] {
+	display: none;
+}
+.course-button {
+	border: 1px solid black;
+	border-radius: .2em;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+            box-sizing: border-box;
+	color: #f0f0f0;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 100%;
+	opacity: 0;
+	padding: 1em;
+	text-align: center;
+	-webkit-transition: .5s;
+	   -moz-transition: .5s;
+	     -o-transition: .5s;
+	        transition: .5s;
+	width: 45%;
+}
+.course:hover .course-button {
+	color: #fff;
+	opacity: 1;
+}
+.course-operation {
+	background-color: #0f0;
+	border-color: #0c0;
+}
+.course-operation:hover {
+	background-color: #afa;
+	border-color: #aea;
+}
+.course-operation-type {
+	background-color: #f00;
+	border-color: #c00;
+}
+.course-operation-type:hover {
+	background-color: #faa;
+	border-color: #eaa;
 }
