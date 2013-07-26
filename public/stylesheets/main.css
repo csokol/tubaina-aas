@@ -6,19 +6,35 @@ body {
 	text-align: center;
 }
 .logo, .big-logo {
-	background-image: url(../images/taas-logo.svg);
 	background-size: cover;
 	display: block;
-	margin: auto;
 	text-indent: -99999px;
 }
 .logo {
-	height: 122px;
-	width: 280px;
+	background-image: url(../images/favicon.svg);
+	background-position: top center;
+	background-repeat: no-repeat;
+	background-size: auto 90%;
+	border-bottom-left-radius: 1em;
+	border-bottom-right-radius: 1em;
+	box-shadow: 0 0 1em #ccc;
+	height: 100px;
+	left: 50%;
+	padding: 0 1em 1em;
+	position: fixed;
+	top: 0;
+	-webkit-transform: translateX(-50%);
+	   -moz-transform: translateX(-50%);
+	    -ms-transform: translateX(-50%);
+	     -o-transform: translateX(-50%);
+	        transform: translateX(-50%);
+	width: 83px;
 }
 .big-logo {
-	height: 280px;
-	width: 640px;
+	background-image: url(../images/taas-logo.svg);
+	height: 257px;
+	margin: 1em auto;
+	width: 637px;
 }
 .login-button {
 	background: #1a1a1a;
