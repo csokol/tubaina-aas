@@ -63,9 +63,13 @@ body {
 	position: relative;
 	top: .2em;
 }
+.courses-page {
+	background-color: #ffc;
+	display: block;
+	padding-top: 180px;
+}
 .courses {
 	background-color: #f90;
-	margin-top: 180px;
 	padding-top: 50px;
 	text-align: center;
 }
@@ -186,7 +190,6 @@ input[type=radio] {
 }
 .course-button {
 	border: 1px solid black;
-	border-radius: .2em;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
             box-sizing: border-box;
@@ -210,16 +213,33 @@ input[type=radio] {
 .course-operation {
 	background-color: #0f0;
 	border-color: #0c0;
+	margin-bottom: .5em;
 }
 .course-operation:hover {
 	background-color: #afa;
 	border-color: #aea;
 }
-.course-operation-type {
+.course:hover .course-operation-type {
 	background-color: #f00;
 	border-color: #c00;
+	opacity: 0;
 }
 .course-operation-type:hover {
 	background-color: #faa;
 	border-color: #eaa;
+}
+.course:hover .course-download:checked ~ .course-download {
+	opacity: 1;
+}
+.course:hover .course-download:checked ~ .course-generate {
+	opacity: 0.2;
+}
+.course:hover .course-generate:checked ~ .course-download {
+	opacity: 0.2;
+}
+.course:hover .course-generate:checked ~ .course-generate {
+	opacity: 1;
+}
+.course:hover .course-operation:checked ~ .course-operation-type {
+	opacity: 1;
 }
