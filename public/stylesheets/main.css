@@ -91,12 +91,12 @@ body {
 }
 .course-name {
 	background-color: #0082c7;
-	color: transparent;
+	color: #f0f0f0;
 	display: block;
 	font-size: 150%;
 	height: 120px;
 	margin: .5em auto 1em;
-	line-height: 120px;
+	line-height: 280px;
 	-webkit-transition: .5s;
 	   -moz-transition: .5s;
 	     -o-transition: .5s;
@@ -106,6 +106,7 @@ body {
 .course:hover .course-name {
 	background-color: #9ff;
 	color: #333;
+	line-height: 120px;
 }
 .course-name.CS-14 {
 	background-image: url(../images/courses/CS-14.svg);
