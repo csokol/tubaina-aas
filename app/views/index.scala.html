@@ -1,9 +1,13 @@
 @(clientId: String)
-
 @main {
     
     <div class="main">
     		<h1 class="big-logo">Tubaina as a service</h1>
+ 		    @if(flash.get("message")!=null){
+				<p class="message">
+					@flash.get("message")
+				</p>
+			}
     		<a href="https://github.com/login/oauth/authorize?client_id=@clientId&scope=repo,user" class="login-button">
     			Login (via Github)
     		</a>

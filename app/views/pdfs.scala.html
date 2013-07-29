@@ -1,12 +1,12 @@
 @(pdfs:java.util.List[PdfGenerated], courses:java.util.List[String])
-@if(flash.get("successMessage")!=null){
-	<span class="sucessMessage">
-		@flash.get("successMessage")
-	</span>
-}
 @main {
 	<h1 class="logo">Tubaina as a service</h1>
     <main class="courses-page">
+		@if(flash.get("message")!=null){
+			<p class="message">
+				@flash.get("message")
+			</p>
+		}
     	<ul class="courses">
     		@courses.map { course =>
     			<li class="course">

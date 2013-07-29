@@ -50,6 +50,7 @@ public class Application extends Controller {
 
 		Promise<File> generatingTextBook = play.libs.Akka
 				.future(new Callable<File>() {
+					@Override
 					public File call() {
 						new TextBookGenerator(course, type, apostilasDir,
 								outputDir, templateDir).run();
@@ -65,7 +66,7 @@ public class Application extends Controller {
 						return pdf;
 					}
 				});
-		
+
 		generatingTextBook.recover(new Function<Throwable, File>() {
             @Override
             public File apply(Throwable error) throws Throwable {
@@ -85,7 +86,7 @@ public class Application extends Controller {
                 error.printStackTrace(printWriter);
                 printWriter.close();
                 String stackTrace = out.toString();
-                
+
                 SimpleEmail simpleEmail = new SimpleEmail();
                 setEmailConf(configuration, simpleEmail);
                 play.Logger.error("error while building pdf, sending email to user");
@@ -97,7 +98,7 @@ public class Application extends Controller {
                 simpleEmail.send();
             }
         });
-		
+
 		Promise<Void> generated = generatingTextBook.map(new Function<File, Void>() {
 			@Override
 			public Void apply(File pdf) throws Throwable {
@@ -120,7 +121,7 @@ public class Application extends Controller {
 			}
 
 		});
-		
+
 		generated.recover(new Function<Throwable, Void>() {
 			@Override
 			public Void apply(Throwable e) throws Throwable {
@@ -128,8 +129,8 @@ public class Application extends Controller {
 				return null;
 			}
 		});
-		
-		flash().put("successMessage", "Sua apostila está sendo gerada, aguarde um email pacientemente.");
+
+		flash().put("message", "Sua apostila está sendo gerada, aguarde um email pacientemente.");
 		return redirect(routes.Application.listPdfs());
 	}
 
@@ -137,9 +138,9 @@ public class Application extends Controller {
 			final Configuration configuration, final String emailToSend,
 			File pdf) throws EmailException {
 		MultiPartEmail email = new MultiPartEmail();
-		
+
 		setEmailConf(configuration, email);
-        
+
         email.attach(pdf);
 		email.setSubject("Sua apostila do curso " + course);
 		email.addTo(emailToSend);
@@ -161,7 +162,7 @@ public class Application extends Controller {
 	public static Result listPdfs() {
 		List<PdfGenerated> pdfs = PdfGenerated.finder.all();
 		Collections.sort(pdfs);
-		List<String> courses = Arrays.<String>asList("WD-01", "WD-43", "WD-47", "FJ-11", 
+		List<String> courses = Arrays.<String>asList("WD-01", "WD-43", "WD-47", "FJ-11",
 				"FJ-21", "FJ-22", "FJ-25", "FJ-26", "FJ-27", "FJ-31", "FJ-34", "FJ-91", "FJ-57"
 				, "RR-71", "RR-75", "IP-67", "PM-83", "PM-87");
 		return ok(views.html.pdfs.render(pdfs, courses));

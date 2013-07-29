@@ -2,6 +2,18 @@ body {
 	font-family: 'Monda', sans-serif;
 	font-size: 100%;
 }
+.message {
+	-webkit-animation: blink-flash 1s;
+	   -moz-animation: blink-flash 1s;
+	     -o-animation: blink-flash 1s;
+	        animation: blink-flash 1s;
+	background-color: #ff7;
+	border-bottom: 1px solid #ff0;
+	border-top: 1px solid #ff0;
+	color: #333;
+	margin: 1em auto;
+	padding: 1em;
+}
 .main {
 	text-align: center;
 }
@@ -243,4 +255,37 @@ input[type=radio] {
 }
 .course:hover .course-operation:checked ~ .course-operation-type {
 	opacity: 1;
+}
+
+@keyframes blink-flash {
+	0%, 50%, 100% {
+		background-color: #ff7;
+	}
+	25%, 75% {
+		background-color: #fff;
+	}
+}
+@-webkit-keyframes blink-flash {
+	0%, 50%, 100% {
+		background-color: #ff7;
+	}
+	25%, 75% {
+		background-color: #fff;
+	}
+}
+@-moz-keyframes blink-flash {
+	0%, 50%, 100% {
+		background-color: #ff7;
+	}
+	25%, 75% {
+		background-color: #fff;
+	}
+}
+@-o-keyframes blink-flash {
+	0%, 50%, 100% {
+		background-color: #ff7;
+	}
+	25%, 75% {
+		background-color: #fff;
+	}
 }

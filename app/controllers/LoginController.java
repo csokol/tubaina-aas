@@ -20,16 +20,17 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 public class LoginController extends Controller{
-	
-	
+
+
 	public static Result notLogged(){
-		return ok(views.html.notLogged.render());
+		flash().put("message", "Você precisa se logar para prosseguir");
+		return redirect(routes.Application.index());
 	}
-	
+
 	public static Result authenticationFailed(){
 		return badRequest(views.html.authenticationFailed.render());
 	}
-	
+
 	public static Result logout(){
 		session().clear();
 		return redirect(routes.Application.index());
@@ -57,7 +58,7 @@ public class LoginController extends Controller{
 				for (Repository repository : all) {
 					if(repository.getName().equals("apostilas-novas")){
 						UserService userService = new UserService(client);
-						GithubUser githubUser = new GithubUser(client.getUser(),userService.getEmails());						
+						GithubUser githubUser = new GithubUser(client.getUser(),userService.getEmails());
 						session().put("user",client.getUser());
 						if(githubUser.hasEmail()){
 							session().put("email",githubUser.getFirstEmail());
