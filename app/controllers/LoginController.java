@@ -5,6 +5,7 @@ import java.util.List;
 import models.GithubUser;
 
 import org.eclipse.egit.github.core.Repository;
+import org.eclipse.egit.github.core.User;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.RepositoryService;
 import org.eclipse.egit.github.core.service.UserService;
@@ -59,7 +60,9 @@ public class LoginController extends Controller{
 					if(repository.getName().equals("apostilas-novas")){
 						UserService userService = new UserService(client);
 						GithubUser githubUser = new GithubUser(client.getUser(),userService.getEmails());
-						session().put("user",client.getUser());
+						User user = userService.getUser();
+						session().put("user", user.getLogin());
+						session().put("userAvatar", user.getAvatarUrl());
 						if(githubUser.hasEmail()){
 							session().put("email",githubUser.getFirstEmail());
 						}

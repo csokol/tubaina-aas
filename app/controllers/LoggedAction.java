@@ -10,7 +10,7 @@ public class LoggedAction extends Simple{
 	public Result call(Context ctx) throws Throwable {
 		if(ctx.session().get("user")!=null){
 			return delegate.call(ctx);
-		}		
+		}
 		return redirect(controllers.routes.LoginController.notLogged());
 	}
 

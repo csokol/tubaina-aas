@@ -1,6 +1,16 @@
 @(pdfs:java.util.List[PdfGenerated], courses:java.util.List[String])
 @main {
-	<h1 class="logo">Tubaina as a service</h1>
+	<input type="checkbox" class="menu-toggle" id="menu-toggle">
+	<header>
+		<h1 class="logo">Tubaina as a service</h1>
+		<label for="menu-toggle" class="user-status">
+			<img class="user-avatar" src="@session.get("userAvatar")" alt="Avatar do @session.get("user")">
+			<span class="user-login">@session.get("user")</span>
+		</label>
+	</header>
+	<ul class="user-menu">
+		<li><a href="@routes.LoginController.logout()">Logout</a></li>
+	</ul>
     <main class="courses-page">
 		@if(flash.get("message")!=null){
 			<p class="message">

@@ -2,6 +2,79 @@ body {
 	font-family: 'Monda', sans-serif;
 	font-size: 100%;
 }
+header {
+	-webkit-align-items: center;
+	    -ms-align-items: center;
+	        align-items: center;
+	display: -webkit-flex;
+	display:     -ms-flex;
+	display:         flex;
+	-webkit-justify-content: space-between;
+	    -ms-justify-content: space-between;
+	        justify-content: space-between;
+	padding: .5em;
+	position: relative;
+}
+.user-status {
+	cursor: pointer;
+	padding: .5em;
+}
+.user-status:after {
+	content: '\25BC';
+}
+.user-avatar {
+	display: inline-block;
+	height: 32px;
+	width: 32px;
+}
+.user-login {
+	margin: 0 .5em;
+}
+.user-avatar, .user-login {
+	vertical-align: middle;
+}
+.user-menu a {
+	color: inherit;
+	display: block;
+	padding: 1em;
+	text-decoration: none;
+}
+.user-menu a:hover {
+	color: #333;
+	background-color: #ffc;
+}
+#menu-toggle,
+.user-menu {
+	display: none;
+}
+#menu-toggle:checked + header .user-status,
+#menu-toggle:checked ~ .user-menu {
+	background-color: #ffa;
+}
+#menu-toggle:checked + header .user-status:after {
+	content: '\25B2';
+}
+#menu-toggle:checked ~ .user-menu {
+	cursor: pointer;
+	display: block;
+	margin-top: .5em;
+	position: absolute;
+	right: .5em;
+}
+#menu-toggle:checked ~ .user-menu:before {
+	border-bottom: .75em solid #ffa;
+	border-left: .75em solid transparent;
+	border-right: .75em solid transparent;
+	bottom: 100%;
+	content: '';
+	display: block;
+	height: 0;
+	left: -webkit-calc(50% - .75em);
+	left:    -moz-calc(50% - .75em);
+	left:         calc(50% - .75em);
+	position: absolute;
+	width: 0;
+}
 .message {
 	-webkit-animation: blink-flash 1s;
 	   -moz-animation: blink-flash 1s;
@@ -14,7 +87,7 @@ body {
 	margin: 1em auto;
 	padding: 1em;
 }
-.main {
+.initial-page {
 	text-align: center;
 }
 .logo, .big-logo {
@@ -23,26 +96,11 @@ body {
 	text-indent: -99999px;
 }
 .logo {
-	background-color: #fe9;
-	background-image: url(../images/favicon.svg);
-	background-position: top center;
+	background-image: url(../images/taas-logo.svg);
 	background-repeat: no-repeat;
-	background-size: auto 90%;
-	border-bottom-left-radius: 1em;
-	border-bottom-right-radius: 1em;
-	box-shadow: 0 0 1em #ccc;
-	height: 100px;
-	left: 50%;
-	padding: 0 1em 1em;
-	position: fixed;
-	top: 0;
-	-webkit-transform: translateX(-50%);
-	   -moz-transform: translateX(-50%);
-	    -ms-transform: translateX(-50%);
-	     -o-transform: translateX(-50%);
-	        transform: translateX(-50%);
-	width: 83px;
-	z-index: 2;
+	background-size: auto 100%;
+	height: 48px;
+	width: 115px;
 }
 .big-logo {
 	background-image: url(../images/taas-logo.svg);
@@ -77,7 +135,7 @@ body {
 }
 .courses {
 	background-color: #f90;
-	padding-top: 200px;
+	padding-top: 50px;
 	text-align: center;
 }
 .course {
@@ -264,34 +322,34 @@ input[type=radio] {
 }
 
 @keyframes blink-flash {
-	0%, 50%, 100% {
+	0%, 33%, 66%, 100% {
 		background-color: #ff7;
 	}
-	25%, 75% {
-		background-color: #fff;
+	16%, 50%, 83% {
+		background-color: #ffc;
 	}
 }
 @-webkit-keyframes blink-flash {
-	0%, 50%, 100% {
+	0%, 33%, 66%, 100% {
 		background-color: #ff7;
 	}
-	25%, 75% {
-		background-color: #fff;
+	16%, 50%, 83% {
+		background-color: #ffc;
 	}
 }
 @-moz-keyframes blink-flash {
-	0%, 50%, 100% {
+	0%, 33%, 66%, 100% {
 		background-color: #ff7;
 	}
-	25%, 75% {
-		background-color: #fff;
+	16%, 50%, 83% {
+		background-color: #ffc;
 	}
 }
 @-o-keyframes blink-flash {
-	0%, 50%, 100% {
+	0%, 33%, 66%, 100% {
 		background-color: #ff7;
 	}
-	25%, 75% {
-		background-color: #fff;
+	16%, 50%, 83% {
+		background-color: #ffc;
 	}
 }
