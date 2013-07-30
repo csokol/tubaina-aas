@@ -38,13 +38,27 @@ public class Application extends Controller {
 	}
 
 	@With(LoggedAction.class)
-	public static Result generate(final String course, final String type)
+	public static Result generateOrDownload(final String course) {
+		String operation = request().getQueryString("operation");
+		String generateUrl = routes.Application.generate(course) + "?type=" + request().getQueryString("type");
+		if ("generate".equals(operation)) {
+			return redirect(generateUrl);
+		}
+		PdfGenerated existing = PdfGenerated.finder.where().eq("name", course).findUnique();
+		if (existing != null) {
+			return redirect(routes.Application.download(existing.id));
+		}
+		flash().put("message", "Esta apostila ainda não foi gerada. Vou gerá-la e te mando por e-mail, ok?");
+		return redirect(generateUrl);
+	}
+
+	@With(LoggedAction.class)
+	public static Result generate(final String course)
 			throws IOException, InterruptedException {
+		final String type = request().getQueryString("type").toLowerCase();
 		final Configuration configuration = Play.application().configuration();
-		final String apostilasDir = configuration
-				.getString("tubaina.apostilas.dir");
-		final File outputDir = new File(configuration.getString("tubaina.output.dir"), System.currentTimeMillis()
-				+ "");
+		final String apostilasDir = configuration.getString("tubaina.apostilas.dir");
+		final File outputDir = new File(configuration.getString("tubaina.output.dir"), System.currentTimeMillis() + "");
 		final File templateDir = new File(configuration.getString("tubaina.templates.dir"));
 		final String userEmail = session().get("email");
 
@@ -130,7 +144,11 @@ public class Application extends Controller {
 			}
 		});
 
-		flash().put("message", "Sua apostila está sendo gerada, aguarde um email pacientemente.");
+		if (flash().get("message") == null) {
+			flash().put("message", "Sua apostila está sendo gerada, aguarde um email pacientemente.");
+		} else {
+			flash().put("message", flash().get("message")); // ><
+		}
 		return redirect(routes.Application.listPdfs());
 	}
 
