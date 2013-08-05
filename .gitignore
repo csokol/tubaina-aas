@@ -16,3 +16,4 @@ dist
 /.settings
 tokens
 todo.log
+conf/application.conf

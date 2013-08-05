@@ -43,13 +43,14 @@ header {
 	color: #333;
 	background-color: #ffc;
 }
+/* BEGIN user menu hide/show effect */
 #menu-toggle,
 .user-menu {
 	display: none;
 }
 #menu-toggle:checked + header .user-status,
 #menu-toggle:checked ~ .user-menu {
-	background-color: #ffa;
+	background-color: #ff7;
 }
 #menu-toggle:checked + header .user-status:after {
 	content: '\25B2';
@@ -62,7 +63,7 @@ header {
 	right: .5em;
 }
 #menu-toggle:checked ~ .user-menu:before {
-	border-bottom: .75em solid #ffa;
+	border-bottom: .75em solid #ff7;
 	border-left: .75em solid transparent;
 	border-right: .75em solid transparent;
 	bottom: 100%;
@@ -75,17 +76,29 @@ header {
 	position: absolute;
 	width: 0;
 }
+/* END user menu hide/show effect */
 .message {
-	-webkit-animation: blink-flash 1s;
-	   -moz-animation: blink-flash 1s;
-	     -o-animation: blink-flash 1s;
-	        animation: blink-flash 1s;
+	-webkit-animation: blink-flash-hide 10s;
+	   -moz-animation: blink-flash-hide 10s;
+	     -o-animation: blink-flash-hide 10s;
+	        animation: blink-flash-hide 10s;
+	-webkit-animation-fill-mode: forwards;
+	       -moz-animation-fill-mode: forwards;
+	         -o-animation-fill-mode: forwards;
+	            animation-fill-mode: forwards;
 	background-color: #ff7;
 	border-bottom: 1px solid #ff0;
 	border-top: 1px solid #ff0;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+            box-sizing: border-box;
 	color: #333;
 	margin: 1em auto;
 	padding: 1em;
+}
+.courses-page .message {
+	position: absolute;
+	width: 100%;
 }
 .initial-page {
 	text-align: center;
@@ -134,7 +147,7 @@ header {
 	top: .2em;
 }
 .courses {
-	background-color: #f90;
+	background-color: #ff8a22;
 	padding-top: 50px;
 	text-align: center;
 }
@@ -152,10 +165,10 @@ header {
 	width: 280px;
 }
 .course:hover {
-	background-color: #fe9;
+	background-color: #ffd3ac;
 }
 .course-name {
-	background-color: #0082c7;
+	background-color: #3353d6;
 	color: #f0f0f0;
 	display: block;
 	font-size: 150%;
@@ -169,7 +182,7 @@ header {
 	width: 120px;
 }
 .course:hover .course-name {
-	background-color: #9ff;
+	background-color: #adbbf2;
 	color: #333;
 	line-height: 120px;
 }
@@ -264,10 +277,12 @@ input[type=radio] {
 	display: inline-block;
 	font-family: inherit; /* don't know why, FF (at least) doesn't do this by default with buttons */
 	font-size: 100%;
+	font-weight: bold;
 	line-height: normal; /* as Firefox wishes (see http://www.cssnewbie.com/input-button-line-height-bug/)... */
 	opacity: 0;
 	padding: .75em;
 	text-align: center;
+	text-shadow: -1px 1px rgba(0,0,0,.6);
 	-webkit-transition: .5s;
 	   -moz-transition: .5s;
 	     -o-transition: .5s;
@@ -278,22 +293,22 @@ input[type=radio] {
 	color: #fff;
 }
 .course-operation {
-	background-color: #0f0;
-	border-color: #0c0;
+	background-color: #46b53b;
+	border-color: #1aa10c;
 	margin-bottom: .5em;
 }
 .course-operation:hover {
-	background-color: #7f7;
-	border-color: #7e7;
+	background-color: #79f86c;
+	border-color: #46b53b;
 }
 .course-operation-type {
-	background-color: #f00;
-	border-color: #c00;
+	background-color: #fd222d;
+	border-color: #b00d15;
 	opacity: 0;
 }
 .course-operation-type:hover {
-	background-color: #f77;
-	border-color: #e77;
+	background-color: #fe6f76;
+	border-color: #c64047;
 }
 
 /* the first two buttons appear only when hovering the course */
@@ -321,35 +336,59 @@ input[type=radio] {
 	opacity: 1;
 }
 
-@keyframes blink-flash {
-	0%, 33%, 66%, 100% {
+@-webkit-keyframes blink-flash-hide {
+	0%, 6%, 12%, 18% {
 		background-color: #ff7;
 	}
-	16%, 50%, 83% {
+	3%, 6%, 9% {
 		background-color: #ffc;
+	}
+	95% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
 	}
 }
-@-webkit-keyframes blink-flash {
-	0%, 33%, 66%, 100% {
+@-moz-keyframes blink-flash-hide {
+	0%, 6%, 12%, 18% {
 		background-color: #ff7;
 	}
-	16%, 50%, 83% {
+	3%, 6%, 9% {
 		background-color: #ffc;
+	}
+	95% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
 	}
 }
-@-moz-keyframes blink-flash {
-	0%, 33%, 66%, 100% {
+@-o-keyframes blink-flash-hide {
+	0%, 6%, 12%, 18% {
 		background-color: #ff7;
 	}
-	16%, 50%, 83% {
+	3%, 6%, 9% {
 		background-color: #ffc;
+	}
+	95% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
 	}
 }
-@-o-keyframes blink-flash {
-	0%, 33%, 66%, 100% {
+@keyframes blink-flash-hide {
+	0%, 10%, 20%, 30% {
 		background-color: #ff7;
 	}
-	16%, 50%, 83% {
+	5%, 15%, 25% {
 		background-color: #ffc;
+	}
+	95% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
 	}
 }
