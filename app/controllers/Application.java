@@ -44,9 +44,9 @@ public class Application extends Controller {
 		if ("generate".equals(operation)) {
 			return redirect(generateUrl);
 		}
-		PdfGenerated existing = PdfGenerated.finder.where().eq("name", course).findUnique();
-		if (existing != null) {
-			return redirect(routes.Application.download(existing.id));
+		List<Object> existing = PdfGenerated.finder.where().eq("name", course).orderBy().desc("id").findIds();
+		if (!existing.isEmpty()) {
+			return redirect(routes.Application.download((long) existing.get(0)));
 		}
 		flash().put("message", "Esta apostila ainda não foi gerada. Vou gerá-la e te mando por e-mail, ok?");
 		return redirect(generateUrl);
