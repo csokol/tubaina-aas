@@ -12,6 +12,7 @@ import java.util.concurrent.Callable;
 
 import models.PDFGenerator;
 import models.PdfGenerated;
+import models.PdfType;
 import models.TextBookGenerator;
 
 import org.apache.commons.io.IOUtils;
@@ -55,7 +56,7 @@ public class Application extends Controller {
 	@With(LoggedAction.class)
 	public static Result generate(final String course)
 			throws IOException, InterruptedException {
-		final String type = request().getQueryString("type").toLowerCase();
+		final PdfType type = PdfType.valueOf(request().getQueryString("type").toUpperCase());
 		final Configuration configuration = Play.application().configuration();
 		final String apostilasDir = configuration.getString("tubaina.apostilas.dir");
 		final File outputDir = new File(configuration.getString("tubaina.output.dir"), System.currentTimeMillis() + "");
@@ -66,6 +67,7 @@ public class Application extends Controller {
 				.future(new Callable<File>() {
 					@Override
 					public File call() {
+						play.Logger.debug("calling tubaina...");
 						new TextBookGenerator(course, type, apostilasDir,
 								outputDir, templateDir).run();
 						File pdfDir = new File(outputDir, "latex");
@@ -118,7 +120,7 @@ public class Application extends Controller {
 			public Void apply(File pdf) throws Throwable {
 				play.Logger.info("reading pdf: " + pdf);
 				byte[] contents = IOUtils.toByteArray(new FileInputStream(pdf));
-				PdfGenerated pdfGenerated = new PdfGenerated(course, contents);
+				PdfGenerated pdfGenerated = new PdfGenerated(course, type, contents);
 				play.Logger.info("saving pdf");
 				pdfGenerated.save();
 				play.Logger.info("saved");
@@ -180,7 +182,7 @@ public class Application extends Controller {
 	public static Result listPdfs() {
 		List<PdfGenerated> pdfs = PdfGenerated.finder.all();
 		Collections.sort(pdfs);
-		List<String> courses = Arrays.<String>asList("WD-01", "WD-43", "WD-47", "FJ-11",
+		List<String> courses = Arrays.<String>asList("WD-43", "WD-47", "FJ-11",
 				"FJ-21", "FJ-22", "FJ-25", "FJ-26", "FJ-27", "FJ-31", "FJ-34", "FJ-91", "FJ-57"
 				, "RR-71", "RR-75", "IP-67", "PM-83", "PM-87");
 		return ok(views.html.pdfs.render(pdfs, courses));

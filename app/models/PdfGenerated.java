@@ -3,6 +3,8 @@ package models;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
@@ -28,32 +30,39 @@ public class PdfGenerated extends Model implements Comparable<PdfGenerated> {
     @Lob
     private byte[] file;
     
+    @Enumerated(EnumType.STRING)
+    private PdfType type;
+    
     public static Finder<Long, PdfGenerated> finder = new Finder<Long, PdfGenerated>(
             Long.class, PdfGenerated.class);
     
-    public PdfGenerated(String name, byte[] file) {
+    public PdfGenerated(String name, PdfType type, byte[] file) {
         this.name = name;
+		this.type = type;
         this.file = file;
     }
 
-    @Override
-    public String toString() {
-        return "PdfGenerated [id=" + id + ", name=" + name + ", date=" + date + "]";
-    }
     
     public byte[] getFile() {
         return file;
     }
     
-    public String getName() {
+    @Override
+	public String toString() {
+		return "PdfGenerated [id=" + id + ", name=" + name + ", date=" + date
+				+ ", type=" + type + "]";
+	}
+
+	public String getName() {
         return name;
     }
+	
+	public PdfType getType() {
+		return type;
+	}
 
 	@Override
 	public int compareTo(PdfGenerated other) {
 		return this.date.compareTo(other.date);
 	}
-    
-    
-    
 }
