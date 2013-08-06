@@ -292,6 +292,9 @@ input[type=radio] {
 .course-button:hover {
 	color: #fff;
 }
+.course-button [class^='icon'] {
+    margin-right: .5em;
+}
 .course-operation {
 	background-color: #46b53b;
 	border-color: #1aa10c;

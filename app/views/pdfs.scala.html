@@ -25,11 +25,11 @@
     				<form action="@routes.Application.generateOrDownload(course)" method="get">
 	    				<input class="course-operation course-download" type="radio" name="operation" value="download" id="@course-download">
 	    				<input class="course-operation course-generate" type="radio" name="operation" value="generate" id="@course-generate">
-	    				<label class="course-button course-operation course-download" for="@course-download">Download</label>
-	    				<label class="course-button course-operation course-generate" for="@course-generate">Gerar</label>
+                        <label class="course-button course-operation course-download" for="@course-download"><i class="icon-download"></i>Download</label>
+                        <label class="course-button course-operation course-generate" for="@course-generate"><i class="icon-gears"></i>Gerar</label>
 
-    					<input class="course-button course-operation-type" type="submit" name="type" value="Instrutor">
-    					<input class="course-button course-operation-type" type="submit" name="type" value="Aluno">
+                        <button class="course-button course-operation-type" type="submit" name="type" value="Instrutor"><i class="icon-pencil"></i>Instrutor</button>
+                        <button class="course-button course-operation-type" type="submit" name="type" value="Aluno"><i class="icon-user"></i>Aluno</button>
     				</form>
     			</li>
     		}
