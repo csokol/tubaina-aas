@@ -41,11 +41,20 @@ public class Application extends Controller {
 	@With(LoggedAction.class)
 	public static Result generateOrDownload(final String course) {
 		String operation = request().getQueryString("operation");
-		String generateUrl = routes.Application.generate(course) + "?type=" + request().getQueryString("type");
+		String type = request().getQueryString("type");
+		String generateUrl = routes.Application.generate(course) + "?type=" + type;
 		if ("generate".equals(operation)) {
 			return redirect(generateUrl);
 		}
-		List<Object> existing = PdfGenerated.finder.where().eq("name", course).orderBy().desc("id").findIds();
+		List<Object> existing = PdfGenerated.finder
+				.where()
+				.conjunction()
+					.eq("name", course)
+					.eq("type", type)
+				.endJunction()
+				.orderBy()
+				.desc("id")
+				.findIds();
 		if (!existing.isEmpty()) {
 			return redirect(routes.Application.download((long) existing.get(0)));
 		}
