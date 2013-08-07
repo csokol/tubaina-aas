@@ -5,11 +5,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import models.CourseGenerated;
 import models.PDFGenerator;
 import models.PdfGenerated;
 import models.PdfType;
@@ -30,6 +32,12 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.With;
 import views.html.index;
+
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.SqlRow;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 
 public class Application extends Controller {
 
@@ -189,12 +197,30 @@ public class Application extends Controller {
 
 	@With(LoggedAction.class)
 	public static Result listPdfs() {
-		List<PdfGenerated> pdfs = PdfGenerated.finder.all();
-		Collections.sort(pdfs);
-		List<String> courses = Arrays.<String>asList("WD-43", "WD-47", "FJ-11",
-				"FJ-21", "FJ-22", "FJ-25", "FJ-26", "FJ-27", "FJ-31", "FJ-34", "FJ-91", "FJ-57"
-				, "RR-71", "RR-75", "IP-67", "PM-83", "PM-87");
-		return ok(views.html.pdfs.render(pdfs, courses));
+		List<SqlRow> pdfs = Ebean.createSqlQuery("select name, type, max(date) as date from pdf_generated group by name, type").findList();
+		List<String> courses = Lists.newArrayList("WD-43", "WD-47", "FJ-11",
+				"FJ-21", "FJ-22", "FJ-25", "FJ-26", "FJ-27", "FJ-31", "FJ-34", "FJ-91", "FJ-57",
+				"RR-71", "RR-75", "IP-67", "PM-83", "PM-87");
+		List<CourseGenerated> coursesGenerated = new ArrayList<CourseGenerated>();
+		Multimap<String, SqlRow> pdfsByCourse = Multimaps.index(pdfs, new com.google.common.base.Function<SqlRow, String>() {
+			@Override
+			public String apply(SqlRow row) {
+				return row.getString("name");
+			}
+		});
+		for (String course : courses) {
+			Collection<SqlRow> pdfsOfCourse = pdfsByCourse.get(course);
+			Date lastStudentDate = null, lastInstructorDate = null;
+			for (SqlRow pdf : pdfsOfCourse) {
+				if (PdfType.INSTRUCTOR.name().equals(pdf.getString("type"))) {
+					lastInstructorDate = pdf.getDate("date");
+				} else {
+					lastStudentDate = pdf.getDate("date");
+				}
+			}
+			coursesGenerated.add(new CourseGenerated(lastInstructorDate, lastStudentDate, course));
+		}
+		return ok(views.html.pdfs.render(coursesGenerated));
 	}
 
 	@With(LoggedAction.class)
