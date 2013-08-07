@@ -1,7 +1,13 @@
-#!/usr/bin/bash
+#!/bin/bash
+echo Gerando latex...
 
-echo "s\n" | pdflatex -shell-escape book.tex > /dev/null || true
-bibtex book || true
-makeindex book.idx || true
-echo "s\n" | pdflatex -shell-escape book.tex > /dev/null || true
-echo "s\n" | pdflatex -shell-escape book.tex > /dev/null || true
+if [ ! -f `pwd`/answer.tex ]; then
+    touch `pwd`/answer.tex;
+fi
+
+pdflatex -interaction nonstopmode -shell-escape book.tex > /dev/null
+bibtex book
+makeindex book.idx
+pdflatex -interaction nonstopmode -shell-escape book.tex > /dev/null
+pdflatex -interaction nonstopmode -shell-escape book.tex > /dev/null
+echo Terminou :)
