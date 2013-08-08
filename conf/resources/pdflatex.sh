@@ -10,4 +10,4 @@ bibtex book
 makeindex book.idx
 pdflatex -interaction nonstopmode -shell-escape book.tex > /dev/null
 pdflatex -interaction nonstopmode -shell-escape book.tex > /dev/null
-echo Terminou :)
+echo "Terminou :)"
