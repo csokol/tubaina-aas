@@ -148,14 +148,14 @@ header {
 }
 .courses {
 	background-color: #ff8a22;
-	padding-top: 100px;
+	padding-top: 7.5%;
 	text-align: center;
 }
 .no-js-message {
 	color: #f0f0f0;
 }
 .custom-pdf-form {
-	height: 100px;
+	height: 120px;
 	max-width: 500px;
 	margin: auto;
 	overflow: hidden;
@@ -165,7 +165,7 @@ header {
 	        transition: .5s;
 }
 .custom-pdf-form.no-matches {
-	height: 275px;
+	height: 330px;
 }
 .custom-pdf-form .course-operation {
 	opacity: 0;	

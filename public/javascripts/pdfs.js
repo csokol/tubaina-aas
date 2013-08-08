@@ -4,6 +4,7 @@
 	customPDFForm.prependTo('.courses');
 	var search = customPDFForm.find('input[name="name"]');
 	search
+		.focus()
 		.filterList($('.course-list'), 'h2')
 		.on('filtered', function(e, matches) {
 			console.log(matches);
