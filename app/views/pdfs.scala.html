@@ -1,5 +1,7 @@
 @(courses:java.util.List[models.CourseGenerated])
 @main {
+	<script src='@routes.Assets.at("javascripts/flexwrap-detect.js")' defer></script>
+	<script src='@routes.Assets.at("javascripts/contains-polyfill.js")' defer></script>
 	<script src='@routes.Assets.at("javascripts/filterList.js")' defer></script>
 	<script src='@routes.Assets.at("javascripts/pdfs.js")' defer></script>
 	<input type="checkbox" class="menu-toggle" id="menu-toggle">
@@ -21,7 +23,7 @@
 		}
 		<div class="courses">
 			<noscript class="no-js-message">Quer construir uma apostila customizada? Ative o JavaScript!</noscript>
-	    	<ul>
+	    	<ul class="course-list">
 	    		@courses.map { course =>
 	    			<li class="course">
 	    				<h2 class="course-name @course.name">@course.name</h2>

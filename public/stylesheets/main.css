@@ -157,8 +157,35 @@ header {
 .filter-list {
 	border: medium solid #b15b0e;
 	font-size: 200%;
-	margin-bottom: 1em;
 	padding: .25em .5em;
+}
+.filter-warning {
+	color: #666;
+	display: block;
+	font-size: 80%;
+	line-height: 2;
+	margin-bottom: 1em;
+}
+.filter-warning strong {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.flexwrap .course-list {
+	display: -webkit-flex;
+	display:    -moz-flex;
+	display:     -ms-flex;
+	display:      -o-flex;
+	display:         flex;
+	-webkit-flex-wrap: wrap;
+	   -moz-flex-wrap: wrap;
+	    -ms-flex-wrap: wrap;
+	     -o-flex-wrap: wrap;
+	        flex-wrap: wrap;
+	-webkit-justify-content: space-around;
+	   -moz-justify-content: space-around;
+	    -ms-justify-content: space-around;
+	     -o-justify-content: space-around;
+	        justify-content: space-around;
 }
 .course {
 	background-position: top center;
@@ -178,6 +205,11 @@ header {
 }
 .course.filtered {
 	opacity: 0.2;
+	-webkit-order: 2;
+	   -moz-order: 2;
+	    -ms-order: 2;
+	     -o-order: 2;
+	        order: 2;
 }
 .course-name {
 	background-color: #3353d6;
