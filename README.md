@@ -12,7 +12,7 @@ Deploy
 ======
 
 * Run `play dist`
-* Send the distribution to the server: `scp -i ~/.ssh/integracao-apostilas.pem dist/tubaina-aas-1.0-SNAPSHOT.zip ec2-user@taas.caelum.com.br:~/deploy`
+* Send the distribution to the server: `scp dist/tubaina-aas-1.0-SNAPSHOT.zip <user>@<server>:~/deploy`
 * Go to the server and run:
     * `cd deploy`
     * `sudo deploy.sh`
