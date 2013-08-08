@@ -1,5 +1,7 @@
 @(courses:java.util.List[models.CourseGenerated])
 @main {
+	<script src='@routes.Assets.at("javascripts/filterList.js")' defer></script>
+	<script src='@routes.Assets.at("javascripts/pdfs.js")' defer></script>
 	<input type="checkbox" class="menu-toggle" id="menu-toggle">
 	<header>
 		<h1 class="logo">Tubaina as a service</h1>
@@ -17,27 +19,30 @@
 				@flash.get("message")
 			</p>
 		}
-    	<ul class="courses">
-    		@courses.map { course =>
-    			<li class="course">
-    				<h2 class="course-name @course.name">@course.name</h2>
-    				<form action="@routes.Application.generateOrDownload(course.name)" method="get">
-	    				<input class="course-operation course-download" type="radio" name="operation" value="download" id="@course.name-download">
-	    				<input class="course-operation course-generate" type="radio" name="operation" value="generate" id="@course.name-generate">
-                        <label class="course-button course-operation course-download" for="@course.name-download"><i class="icon-download"></i>Download</label>
-                        <label class="course-button course-operation course-generate" for="@course.name-generate"><i class="icon-gears"></i>Gerar</label>
-
-                        <button class="course-button course-operation-type" type="submit" name="type" value="Instructor">
-                        	<i class="icon-pencil"></i>Instrutor
-                        	<small class="course-generation-date">Última versão: @course.lastInstructorDate</small>
-                        </button>
-                        <button class="course-button course-operation-type" type="submit" name="type" value="Student">
-                        	<i class="icon-user"></i>Aluno
-                        	<small class="course-generation-date">Última versão: @course.lastStudentDate</small>
-                       	</button>
-    				</form>
-    			</li>
-    		}
-    	</ul>
+		<div class="courses">
+			<noscript class="no-js-message">Quer construir uma apostila customizada? Ative o JavaScript!</noscript>
+	    	<ul>
+	    		@courses.map { course =>
+	    			<li class="course">
+	    				<h2 class="course-name @course.name">@course.name</h2>
+	    				<form action="@routes.Application.generateOrDownload(course.name)" method="get">
+		    				<input class="course-operation course-download" type="radio" name="operation" value="download" id="@course.name-download">
+		    				<input class="course-operation course-generate" type="radio" name="operation" value="generate" id="@course.name-generate">
+	                        <label class="course-button course-operation course-download" for="@course.name-download"><i class="icon-download"></i>Download</label>
+	                        <label class="course-button course-operation course-generate" for="@course.name-generate"><i class="icon-gears"></i>Gerar</label>
+	
+	                        <button class="course-button course-operation-type" type="submit" name="type" value="Instructor">
+	                        	<i class="icon-pencil"></i>Instrutor
+	                        	<small class="course-generation-date">Última versão: @course.lastInstructorDate</small>
+	                        </button>
+	                        <button class="course-button course-operation-type" type="submit" name="type" value="Student">
+	                        	<i class="icon-user"></i>Aluno
+	                        	<small class="course-generation-date">Última versão: @course.lastStudentDate</small>
+	                       	</button>
+	    				</form>
+	    			</li>
+	    		}
+	    	</ul>
+    	</div>
     </main>
 }

@@ -151,6 +151,15 @@ header {
 	padding-top: 50px;
 	text-align: center;
 }
+.no-js-message {
+	color: #f0f0f0;
+}
+.filter-list {
+	border: medium solid #b15b0e;
+	font-size: 200%;
+	margin-bottom: 1em;
+	padding: .25em .5em;
+}
 .course {
 	background-position: top center;
 	background-repeat: no-repeat;
@@ -166,6 +175,9 @@ header {
 }
 .course:hover {
 	background-color: #ffd3ac;
+}
+.course.filtered {
+	opacity: 0.2;
 }
 .course-name {
 	background-color: #3353d6;
