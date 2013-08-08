@@ -47,10 +47,11 @@ public class Application extends Controller {
 	}
 
 	@With(LoggedAction.class)
-	public static Result generateOrDownload(final String course) {
+	public static Result generateOrDownload() {
+		String course = request().getQueryString("name");
 		String operation = request().getQueryString("operation");
 		String type = request().getQueryString("type");
-		String generateUrl = routes.Application.generate(course) + "?type=" + type;
+		String generateUrl = routes.Application.generate() + "?name=" + course + "&type=" + type;
 		if ("generate".equals(operation)) {
 			return redirect(generateUrl);
 		}
@@ -71,8 +72,9 @@ public class Application extends Controller {
 	}
 
 	@With(LoggedAction.class)
-	public static Result generate(final String course)
+	public static Result generate()
 			throws IOException, InterruptedException {
+		final String course = request().getQueryString("name");
 		final PdfType type = PdfType.valueOf(request().getQueryString("type").toUpperCase());
 		final Configuration configuration = Play.application().configuration();
 		final String apostilasDir = configuration.getString("tubaina.apostilas.dir");

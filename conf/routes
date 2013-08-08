@@ -4,8 +4,8 @@
 
 # Home page
 GET     /								controllers.Application.index()
-GET		/:course/generateOrDownload		controllers.Application.generateOrDownload(course:String)
-GET     /:course/generate				controllers.Application.generate(course:String)
+GET		/generateOrDownload				controllers.Application.generateOrDownload()
+GET     /generate						controllers.Application.generate()
 GET     /login/phase1					controllers.LoginController.login()
 GET     /login/failed					controllers.LoginController.notLogged()
 GET     /login/authenticationFailed		controllers.LoginController.authenticationFailed()

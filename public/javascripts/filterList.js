@@ -2,7 +2,8 @@
 	$.extend($.fn, {
 		filterList: function(list, titleSelector) {
 			return this.on('keyup', function() {
-				var filterVal = $(this).val();
+				var $input = $(this);
+				var filterVal = $input.val();
 				var $listItems = $(list).find('li')
 				$listItems.removeClass('filtered');
 				if (filterVal != "") {
@@ -14,6 +15,7 @@
 						}
 					});
 				}
+				$input.trigger('filtered', $listItems.filter(':not(.filtered)').length);
 			});
 		}
 	});

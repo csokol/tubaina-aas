@@ -1,9 +1,16 @@
 ;(function($) {
-	var search = $('<input>');
+	var customPDFFormSource = $('#custom-pdf-form-template').html();
+	var customPDFForm = $(customPDFFormSource);
+	customPDFForm.prependTo('.courses');
+	var search = customPDFForm.find('input[name="name"]');
 	search
-		.addClass('filter-list')
-		.attr('placeholder', 'Digite para filtrar')
-		.prependTo('.courses')
-		.after('<small class="filter-warning">Para uma melhor usabilidade, <strong>não</strong> utilize o Firefox (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=702508">culpa desse bug</a>)</small>')
-		.filterList(search.parent().find('ul'), 'h2');
+		.filterList($('.course-list'), 'h2')
+		.on('filtered', function(e, matches) {
+			console.log(matches);
+			if (matches === 0) {
+				customPDFForm.addClass('no-matches');
+			} else {
+				customPDFForm.removeClass('no-matches');
+			}
+		});
 })(Zepto);

@@ -148,20 +148,56 @@ header {
 }
 .courses {
 	background-color: #ff8a22;
-	padding-top: 50px;
+	padding-top: 100px;
 	text-align: center;
 }
 .no-js-message {
 	color: #f0f0f0;
 }
+.custom-pdf-form {
+	height: 100px;
+	max-width: 500px;
+	margin: auto;
+	overflow: hidden;
+	-webkit-transition: .5s;
+	   -moz-transition: .5s;
+	     -o-transition: .5s;
+	        transition: .5s;
+}
+.custom-pdf-form.no-matches {
+	height: 275px;
+}
+.custom-pdf-form .course-operation {
+	opacity: 0;	
+}
+.no-matches-message {
+	font-size: 150%;
+	margin: 1em 0;
+	color: #f0f0f0;
+	opacity: 0;
+	text-shadow: -1px 1px rgba(0,0,0,.6);
+	-webkit-transition: .5s;
+	   -moz-transition: .5s;
+	     -o-transition: .5s;
+	        transition: .5s;
+}
+.custom-pdf-form.no-matches .course-operation,
+.no-matches .no-matches-message {
+    opacity: 1;
+	-webkit-transition-delay: .25s;
+	   -moz-transition-delay: .25s;
+	     -o-transition-delay: .25s;
+	        transition-delay: .25s;
+}
 .filter-list {
+	background: white url(../images/search.svg) top right no-repeat;
 	border: medium solid #b15b0e;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
             box-sizing: border-box;
 	font-size: 200%;
 	max-width: 95%;
-	padding: .25em .5em;
+	padding: .25em 2em .25em .5em;
 }
 .filter-warning {
 	color: #666;
@@ -378,10 +414,14 @@ input[type=radio] {
 }
 
 /* Selection effect on course-operation */
+.custom-pdf-form.no-matches .course-download:checked ~ .course-download,
+.custom-pdf-form.no-matches .course-generate:checked ~ .course-generate,
 .course:hover .course-download:checked ~ .course-download,
 .course:hover .course-generate:checked ~ .course-generate {
 	opacity: 1;
 }
+.custom-pdf-form.no-matches .course-download:checked ~ .course-generate,
+.custom-pdf-form.no-matches .course-generate:checked ~ .course-download,
 .course:hover .course-download:checked ~ .course-generate,
 .course:hover .course-generate:checked ~ .course-download {
 	opacity: 0.2;
@@ -393,6 +433,7 @@ input[type=radio] {
 }
 
 /* After selecting, two more buttons appear */
+.custom-pdf-form.no-matches .course-operation:checked ~ .course-operation-type,
 .course:hover .course-operation:checked ~ .course-operation-type {
 	opacity: 1;
 }
