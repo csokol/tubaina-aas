@@ -278,6 +278,7 @@ input[type=radio] {
 	line-height: normal; /* as Firefox wishes (see http://www.cssnewbie.com/input-button-line-height-bug/)... */
 	opacity: 0;
 	padding: .75em;
+	position: relative;
 	text-align: center;
 	text-shadow: -1px 1px rgba(0,0,0,.6);
 	-webkit-transition: .5s;
@@ -291,6 +292,14 @@ input[type=radio] {
 }
 .course-button [class^='icon'] {
     margin-right: .5em;
+}
+.course-generation-date {
+    color: #666;
+    font-size: 50%;
+    position: absolute;
+    right: 0px;
+    text-shadow: none;
+    top: 100%;
 }
 .course-operation {
 	background-color: #46b53b;
