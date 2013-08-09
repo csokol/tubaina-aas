@@ -168,7 +168,8 @@ header {
 	height: 330px;
 }
 .custom-pdf-form .course-operation {
-	opacity: 0;	
+	opacity: 0;
+    pointer-events: none;
 }
 .no-matches-message {
 	font-size: 150%;
@@ -184,6 +185,7 @@ header {
 .custom-pdf-form.no-matches .course-operation,
 .no-matches .no-matches-message {
     opacity: 1;
+    pointer-events: auto;
 	-webkit-transition-delay: .25s;
 	   -moz-transition-delay: .25s;
 	     -o-transition-delay: .25s;
@@ -366,6 +368,7 @@ input[type=radio] {
 	line-height: normal; /* as Firefox wishes (see http://www.cssnewbie.com/input-button-line-height-bug/)... */
 	opacity: 0;
 	padding: .75em 0;
+    pointer-events: none;
 	position: relative;
 	text-align: center;
 	text-shadow: -1px 1px rgba(0,0,0,.6);
@@ -402,6 +405,7 @@ input[type=radio] {
 	background-color: #fd222d;
 	border-color: #b00d15;
 	opacity: 0;
+    pointer-events: none;
 }
 .course-operation-type:hover {
 	background-color: #fe6f76;
@@ -411,6 +415,7 @@ input[type=radio] {
 /* the first two buttons appear only when hovering the course */
 .course:hover .course-operation {
 	opacity: 1;
+    pointer-events: auto;
 }
 
 /* Selection effect on course-operation */
@@ -436,6 +441,7 @@ input[type=radio] {
 .custom-pdf-form.no-matches .course-operation:checked ~ .course-operation-type,
 .course:hover .course-operation:checked ~ .course-operation-type {
 	opacity: 1;
+    pointer-events: auto;
 }
 
 @-webkit-keyframes blink-flash-hide {
