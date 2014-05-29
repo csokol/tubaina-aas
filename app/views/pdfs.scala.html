@@ -7,7 +7,6 @@
 	<script id="custom-pdf-form-template" type="text/x-template">
 		<form class="custom-pdf-form" action="@routes.Application.generateOrDownload()" method="get">
 			<input class="filter-list" placeholder="Digite para filtrar" name="name">
-			<small class="filter-warning">Para uma melhor usabilidade, <strong>não</strong> utilize o Firefox (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=702508">culpa desse bug</a>)</small>
 			<p class="no-matches-message">É uma apostila customizada?</p>
 			<input class="course-operation course-download" type="radio" name="operation" value="download" id="custom-download">
 			<input class="course-operation course-generate" type="radio" name="operation" value="generate" id="custom-generate">
@@ -19,7 +18,7 @@
 			<button class="course-button course-operation-type" type="submit" name="type" value="Student">
 				<i class="icon-user"></i>Aluno
 			</button>
-  		</form>
+		</form>
 	</script>
 	<input type="checkbox" class="menu-toggle" id="menu-toggle">
 	<header>
@@ -32,7 +31,7 @@
 	<ul class="user-menu">
 		<li><a href="@routes.LoginController.logout()">Logout</a></li>
 	</ul>
-    <main class="courses-page">
+	<main class="courses-page">
 		@if(flash.get("message")!=null){
 			<p class="message">
 				@flash.get("message")
@@ -40,29 +39,29 @@
 		}
 		<div class="courses">
 			<noscript class="no-js-message">Quer construir uma apostila customizada? Ative o JavaScript!</noscript>
-	    	<ul class="course-list">
-	    		@courses.map { course =>
-	    			<li class="course">
-	    				<h2 class="course-name @course.name">@course.name</h2>
-	    				<form action="@routes.Application.generateOrDownload()" method="get">
-	    					<input type="hidden" name="name" value="@course.name">
-		    				<input class="course-operation course-download" type="radio" name="operation" value="download" id="@course.name-download">
-		    				<input class="course-operation course-generate" type="radio" name="operation" value="generate" id="@course.name-generate">
-	                        <label class="course-button course-operation course-download" for="@course.name-download"><i class="icon-download"></i>Download</label>
-	                        <label class="course-button course-operation course-generate" for="@course.name-generate"><i class="icon-gears"></i>Gerar</label>
-	
-	                        <button class="course-button course-operation-type" type="submit" name="type" value="Instructor">
-	                        	<i class="icon-pencil"></i>Instrutor
-	                        	<small class="course-generation-date">Última versão: @course.lastInstructorDate</small>
-	                        </button>
-	                        <button class="course-button course-operation-type" type="submit" name="type" value="Student">
-	                        	<i class="icon-user"></i>Aluno
-	                        	<small class="course-generation-date">Última versão: @course.lastStudentDate</small>
-	                       	</button>
-	    				</form>
-	    			</li>
-	    		}
-	    	</ul>
-    	</div>
-    </main>
+			<ul class="course-list">
+				@courses.map { course =>
+					<li class="course">
+						<h2 class="course-name @course.name">@course.name</h2>
+						<form action="@routes.Application.generateOrDownload()" method="get">
+							<input type="hidden" name="name" value="@course.name">
+							<input class="course-operation course-download" type="radio" name="operation" value="download" id="@course.name-download">
+							<input class="course-operation course-generate" type="radio" name="operation" value="generate" id="@course.name-generate">
+							<label class="course-button course-operation course-download" for="@course.name-download"><i class="icon-download"></i>Download</label>
+							<label class="course-button course-operation course-generate" for="@course.name-generate"><i class="icon-gears"></i>Gerar</label>
+
+							<button class="course-button course-operation-type" type="submit" name="type" value="Instructor">
+								<i class="icon-pencil"></i>Instrutor
+								<small class="course-generation-date">Última versão: @course.lastInstructorDate</small>
+							</button>
+							<button class="course-button course-operation-type" type="submit" name="type" value="Student">
+								<i class="icon-user"></i>Aluno
+								<small class="course-generation-date">Última versão: @course.lastStudentDate</small>
+							</button>
+						</form>
+					</li>
+				}
+			</ul>
+		</div>
+	</main>
 }
